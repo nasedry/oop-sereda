@@ -52,7 +52,7 @@ public class Currency
         return !(a == b);
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (obj is Currency other)
             return this == other;
