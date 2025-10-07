@@ -1,27 +1,35 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "oop-sereda", "oop-sereda", "{BEBC32A3-4177-EC2A-5983-680ACCB38107}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lab1vN16", "oop-sereda\lab1vN16\lab1vN16.csproj", "{AD014929-A0AD-93A4-384B-5E0EAB21E11A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lab3vN16", "lab3vN16\lab3vN16.csproj", "{6ECBB2BF-FAA2-46C5-AE39-B073944FE973}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AD014929-A0AD-93A4-384B-5E0EAB21E11A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AD014929-A0AD-93A4-384B-5E0EAB21E11A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AD014929-A0AD-93A4-384B-5E0EAB21E11A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AD014929-A0AD-93A4-384B-5E0EAB21E11A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6ECBB2BF-FAA2-46C5-AE39-B073944FE973}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ECBB2BF-FAA2-46C5-AE39-B073944FE973}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ECBB2BF-FAA2-46C5-AE39-B073944FE973}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6ECBB2BF-FAA2-46C5-AE39-B073944FE973}.Debug|x64.Build.0 = Debug|Any CPU
+		{6ECBB2BF-FAA2-46C5-AE39-B073944FE973}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6ECBB2BF-FAA2-46C5-AE39-B073944FE973}.Debug|x86.Build.0 = Debug|Any CPU
+		{6ECBB2BF-FAA2-46C5-AE39-B073944FE973}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ECBB2BF-FAA2-46C5-AE39-B073944FE973}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6ECBB2BF-FAA2-46C5-AE39-B073944FE973}.Release|x64.ActiveCfg = Release|Any CPU
+		{6ECBB2BF-FAA2-46C5-AE39-B073944FE973}.Release|x64.Build.0 = Release|Any CPU
+		{6ECBB2BF-FAA2-46C5-AE39-B073944FE973}.Release|x86.ActiveCfg = Release|Any CPU
+		{6ECBB2BF-FAA2-46C5-AE39-B073944FE973}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{AD014929-A0AD-93A4-384B-5E0EAB21E11A} = {BEBC32A3-4177-EC2A-5983-680ACCB38107}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A2370C4B-8060-4D61-8EC1-4E09C16C2E06}
