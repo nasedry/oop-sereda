@@ -1,17 +1,14 @@
 # IndependentWork13 - Polly Scenarios
 
-## Опис проєкту
 Проєкт демонструє використання бібліотеки Polly для підвищення відмовостійкості .NET-застосунків.  
 Реалізовані три сценарії: виклик зовнішнього API, доступ до бази даних та відправка повідомлень у чергу.
 
 
-## Scenario 1: External API Call
+**Scenario 1: External API Call**
 
-**Проблема:** Зовнішній API може тимчасово бути недоступним або повертати помилки.
+Проблема: Зовнішній API може тимчасово бути недоступним або повертати помилки.  
+Політика Polly: Retry з експоненційною затримкою (2, 4, 8 секунд).
 
-**Політика Polly:** Retry з експоненційною затримкою (2, 4, 8 секунд).
-
-**Фрагмент коду:**
 ```csharp
 var apiRetryPolicy = Policy
     .Handle<HttpRequestException>()
@@ -23,18 +20,11 @@ var apiRetryPolicy = Policy
 
 string apiResult = apiRetryPolicy.Execute(() => CallExternalApi("https://api.example.com/data"));
 
+**Scenario 2: Database Access**
 
-**Приклад виводу:**
+Проблема: База даних може бути недоступною або операція займати надто багато часу.  
+Політика Polly: Retry + Timeout
 
-![Вивід програми](sc1.jpg)
-
-## Scenario 2: Database Access
-
-**Проблема:** База даних може бути недоступною або операція займати надто багато часу.
-
-**Політика Polly:** Retry + Timeout
-
-**Фрагмент коду:**
 ```csharp
 var dbPolicy = Policy
     .Handle<TimeoutException>()
@@ -51,18 +41,11 @@ var dbPolicy = Policy
 
 string dbResult = dbPolicy.Execute(() => AccessDatabase());
 
-**Приклад виводу:**
+**Scenario 3: Send Message to Queue**
 
-![Вивід програми](sc2.jpg)
+Проблема: Черга може бути перевантажена, і повідомлення не відправляються.  
+Політика Polly: Retry + Circuit Breaker
 
-
-## Scenario 3: Send Message to Queue
-
-**Проблема:** Черга може бути перевантажена, і повідомлення не відправляються.
-
-**Політика Polly:** Retry + Circuit Breaker
-
-**Фрагмент коду:**
 ```csharp
 var queuePolicy = Policy
     .Handle<InvalidOperationException>()
@@ -76,10 +59,3 @@ var queuePolicy = Policy
 
 queuePolicy.Execute(() => SendMessageToQueue("Hello, World!"));
 
-**Приклад виводу:**
-
-![Вивід програми](sc3.jpg)
-
-## Висновки
-
-Polly дозволяє автоматизувати повторні спроби при тимчасових помилках. Timeout контролює довгі операції та запобігає зависанню застосунку. Circuit Breaker захищає ресурси від перевантаження та помилок. Використання Polly підвищує стабільність та відмовостійкість .NET-застосунків. Код залишається чистим та легко модифікується для різних сценаріїв.
