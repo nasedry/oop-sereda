@@ -20,12 +20,11 @@ var apiRetryPolicy = Policy
 
 string apiResult = apiRetryPolicy.Execute(() => CallExternalApi("https://api.example.com/data"));
 
-**Scenario 2: Database Access**
+Scenario 2: Database Access
 
-Проблема: База даних може бути недоступною або операція займати надто багато часу.  
+Проблема: База даних може бути недоступною або операція займати надто багато часу.
 Політика Polly: Retry + Timeout
 
-```csharp
 var dbPolicy = Policy
     .Handle<TimeoutException>()
     .WaitAndRetry(2, _ => TimeSpan.FromSeconds(2), 
@@ -41,12 +40,12 @@ var dbPolicy = Policy
 
 string dbResult = dbPolicy.Execute(() => AccessDatabase());
 
-**Scenario 3: Send Message to Queue**
 
-Проблема: Черга може бути перевантажена, і повідомлення не відправляються.  
+Scenario 3: Send Message to Queue
+
+Проблема: Черга може бути перевантажена, і повідомлення не відправляються.
 Політика Polly: Retry + Circuit Breaker
 
-```csharp
 var queuePolicy = Policy
     .Handle<InvalidOperationException>()
     .CircuitBreaker(2, TimeSpan.FromSeconds(10),
@@ -59,3 +58,7 @@ var queuePolicy = Policy
 
 queuePolicy.Execute(() => SendMessageToQueue("Hello, World!"));
 
+
+Висновки
+
+Polly дозволяє автоматизувати повторні спроби при тимчасових помилках. Timeout контролює довгі операції та запобігає зависанню застосунку. Circuit Breaker захищає ресурси від перевантаження та помилок. Використання Polly підвищує стабільність та відмовостійкість .NET-застосунків. Код залишається чистим та легко модифікується для різних сценаріїв.
