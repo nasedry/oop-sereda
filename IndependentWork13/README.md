@@ -36,21 +36,8 @@ var apiRetryPolicy = Policy
 
 
 ## Фрагмент коду:
-csharp
-var dbPolicy = Policy
-    .Handle<TimeoutException>()
-    .WaitAndRetry(2, _ => TimeSpan.FromSeconds(2), 
-        (ex, timeSpan, retryCount, context) =>
-        {
-            Console.WriteLine($"[{DateTime.Now:HH:mm:ss}] DB Retry {retryCount} after {timeSpan.TotalSeconds}s: {ex.Message}");
-        })
-    .Wrap(Policy.Timeout(5, Polly.Timeout.TimeoutStrategy.Pessimistic, 
-        (context, timeSpan, task) =>
-        {
-            Console.WriteLine($"[{DateTime.Now:HH:mm:ss}] Database operation timed out after {timeSpan.TotalSeconds}s");
-        }));
+![Код](cod2.jpg)
 
-string dbResult = dbPolicy.Execute(() => AccessDatabase());
 
 ## Приклад виведення:
 ![Вивід програми](sc2.jpg)
