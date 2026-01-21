@@ -19,48 +19,44 @@ public abstract class HttpRequest
     public abstract PathString Path { get; set; }
     public abstract IHeaderDictionary Headers { get; }
 }
-Клас: HttpResponse
-Відповідальність: формування HTTP-відповіді
 
-Обґрунтування: клас не виконує логіку обробки запиту, а лише описує відповідь
+```
 
-csharp
-Копіювати код
+#### Клас: `HttpResponse`
+- **Відповідальність:** формування HTTP-відповіді
+- **Обґрунтування:** клас не виконує логіку обробки запиту, а лише описує відповідь
+
+```csharp
 public abstract class HttpResponse
 {
     public abstract int StatusCode { get; set; }
     public abstract IHeaderDictionary Headers { get; }
     public abstract Stream Body { get; set; }
 }
-Клас: FileLogger
-Відповідальність: логування повідомлень у файл
+```
+#### Клас: `FileLogger`
+- **Відповідальність:** логування повідомлень у файл
+- **Обґрунтування:** клас виконує лише одну задачу — запис логів
 
-Обґрунтування: клас виконує лише одну задачу — запис логів
-
-csharp
-Копіювати код
+```csharp
 public class FileLogger : ILogger
 {
     public void Log<TState>(LogLevel logLevel, EventId eventId,
         TState state, Exception exception, Func<TState, Exception, string> formatter)
     {
-        // логування у файл
     }
 }
-2.2. Приклади порушення SRP
-Клас: Startup
-Множинні відповідальності:
+```
+### 2.2. Приклади порушення SRP
 
-конфігурація сервісів
+#### Клас: `Startup`
+- **Множинні відповідальності:**
+    - конфігурація сервісів
+    - налаштування middleware
+    - логіка запуску додатку
+- **Проблеми:** клас важко підтримувати та тестувати
 
-налаштування middleware
-
-логіка запуску додатку
-
-Проблеми: клас важко підтримувати та тестувати
-
-csharp
-Копіювати код
+```csharp
 public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
@@ -77,43 +73,43 @@ public class Startup
         app.UseAuthorization();
     }
 }
+```
 Цей клас виконує декілька різних ролей, що порушує SRP.
 
-3. Аналіз OCP (Open/Closed Principle)
-3.1. Приклади дотримання OCP
-Модуль: ILogger
-Механізм розширення: інтерфейси
+## 3. Аналіз OCP (Open/Closed Principle)
 
-Обґрунтування: можна додавати нові логери без зміни існуючого коду
+### 3.1. Приклади дотримання OCP
 
-csharp
-Копіювати код
+#### Модуль: `ILogger`
+- **Механізм розширення:** інтерфейси
+- **Обґрунтування:** можна додавати нові логери без зміни існуючого коду
+
+```csharp
 public interface ILogger
 {
     void Log<TState>(LogLevel logLevel, EventId eventId,
         TState state, Exception exception, Func<TState, Exception, string> formatter);
 }
+```
 Нові реалізації (ConsoleLogger, FileLogger, DbLogger) додаються без змін інтерфейсу.
 
-Модуль: Middleware Pipeline
-Механізм розширення: патерн Chain of Responsibility
+#### Модуль: Middleware Pipeline
+- **Механізм розширення:** патерн Chain of Responsibility
+- **Обґрунтування:** нові middleware додаються без зміни існуючих
 
-Обґрунтування: нові middleware додаються без зміни існуючих
-
-csharp
-Копіювати код
+```csharp
 app.Use(async (context, next) =>
 {
     await next();
 });
-3.2. Приклади порушення OCP
-Сценарій: обробка статусів через switch
-Проблема: при додаванні нового статусу потрібно змінювати існуючий код
+```
+### 3.2. Приклади порушення OCP
 
-Наслідки: ризик помилок, складність підтримки
+#### Сценарій: обробка статусів через `switch`
+- **Проблема:** при додаванні нового статусу потрібно змінювати існуючий код
+- **Наслідки:** ризик помилок, складність підтримки
 
-csharp
-Копіювати код
+```csharp
 switch (status)
 {
     case Status.New:
@@ -123,9 +119,10 @@ switch (status)
         HandleProcessed();
         break;
 }
+```
 Краще використовувати поліморфізм або Strategy.
 
-4. Загальні висновки
+## 4. Загальні висновки
 ASP.NET Core загалом добре дотримується принципів SRP та OCP.
 Більшість компонентів мають чітку відповідальність і легко розширюються через інтерфейси та middleware.
-Проте деякі класи (наприклад, Startup) можуть порушувати SRP через поєднання кількох ролей.
+Проте деякі класи (наприклад, `Startup`) можуть порушувати SRP через поєднання кількох ролей.
